@@ -10,7 +10,7 @@ def picFileCopy(xls_file_path,src_dir_path,to_dir_path):
     目的: 找到包含指定關鍵字的檔案,並另複制到其他資料夾
 
     設定參數:
-    filename.xls :新增一個xls檔案,只要old那欄要抓取檔案的名稱。(不用含副檔名.jpg)
+    filename.xls :新增一個xls檔案,只要old那欄填要抓取檔案的名稱。(不用含副檔名.jpg)
     src_dir_path:照片存檔的資料夾路徑
     to_dir_path:目的資料夾
     '''
@@ -131,9 +131,10 @@ def changeFileName(xls_file_path,src_dir_path):
     目的: 更改檔名
 
     設定參數:
-    xls_file_path:放old,new檔名xls檔的位置,不要跟圖片檔同一個資料夾
+    xls_file_path:放old,new檔名filename.xls檔的位置,不要跟圖片檔同一個資料夾
     src_dir_path:照片存檔的資料夾路徑
-    filename.xls :新增一個xls檔案,內放二欄'old','new'檔名資料,old欄要寫含副檔名的完整名稱
+    filename.xls :新增一個xls檔案,內放二欄'old','new'檔名資料,'old'要含副檔名的名稱,
+                 'new'欄只要寫要更改的檔名即可,副檔名依循'old'欄
     '''
     #xls_file_path="C:/Users/runra/Desktop/test/"        #放old,new檔名xls檔的位置
     #src_dir_path = "C:/Users/runra/Desktop/test/pic/"   #記得改用 / 反斜線
@@ -147,7 +148,7 @@ def changeFileName(xls_file_path,src_dir_path):
     for ims in li:
         if ims in old:
             fileName=ims.split(".") 
-            new=file.loc[ims].new
+            new=file.loc[ims].new+"."+fileName[1]
             os.rename(f"{src_dir_path}/"+ims,f"{src_dir_path}/"+new)   
         else:
             print(ims,"未改名!")
@@ -187,18 +188,18 @@ def changePNG_to_JPG(src_dir_path):
 '''
 
 
-xls_file_path="C:/Users/runra/Desktop/test3/"       #變更檔名時，放old,new檔名xls的位置
-#src_dir_path = "C:/Users/runra/Desktop/test/pic/"  #記得改用 / 反斜線
-src_dir_path = "C:/Users/runra/Desktop/test2/"      #源文件位置,記得改用 / 反斜線
-to_dir_path= "C:/Users/runra/Desktop/test3/"        #另存新檔的位置
+xls_file_path="C:/Users/runra/Desktop/test/"       #變更檔名時，放old,new檔名xls的位置
+src_dir_path = "C:/Users/runra/Desktop/test/pic/"  #記得改用 / 反斜線
+#src_dir_path = "C:/Users/runra/Desktop/test2/"      #源文件位置,記得改用 / 反斜線
+#to_dir_path= "C:/Users/runra/Desktop/test3/"        #另存新檔的位置
 
 
 
-picFileCopy(xls_file_path,src_dir_path,to_dir_path)       #copy指定關鍵字檔案
+#picFileCopy(xls_file_path,src_dir_path,to_dir_path)       #copy指定關鍵字檔案
 #listPicFileInfo(src_dir_path)                 #得到指定資料夾圖片檔的明細
-#hangeDpi(src_dir_path,300)                    #改變指定資料夾圖片dpi
+#changeDpi(src_dir_path,300)                    #改變指定資料夾圖片dpi
 #changePicSize(src_dir_path,450)               #變更指定資料夾內,指定圖片寬度，等比例放大/縮小
-#changeFileName(xls_file_path,src_dir_path)    #大量更改檔名
+changeFileName(xls_file_path,src_dir_path)    #大量更改檔名
 #changePNG_to_JPG(src_dir_path)                #png 另存jpg
 
 
